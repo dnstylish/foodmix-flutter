@@ -21,7 +21,7 @@ class RecipeReviews extends ViewModelWidget<RecipeViewModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          Text('Đánh Giá(${viewModel.recipe.countRating})', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+          Text('Đánh Giá(${viewModel.recipe?.countRating})', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
 
           const SizedBox(height: 20),
 

@@ -18,7 +18,7 @@ class RecipeAppBar extends ViewModelWidget<RecipeViewModel> {
       expandedHeight: 250,
       stretch: true,
       backgroundColor: kPrimary.withOpacity(viewModel.showPress),
-      title: const RecipeTabBar(),
+      title: AnimatedSwitcher(duration: const Duration(milliseconds: 300), child: viewModel.isReady ? const RecipeTabBar() : Container()),
       leading: IconButton(
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(),
@@ -26,7 +26,7 @@ class RecipeAppBar extends ViewModelWidget<RecipeViewModel> {
           onPressed: () => Navigator.of(context).pop()
       ),
       actions: [
-        IconButton(icon: const Icon(Icons.bookmark), onPressed: () {})
+        IconButton(icon: const Icon(Icons.bookmark), onPressed: () => viewModel.toggleIsReady())
       ],
       flexibleSpace: const FlexibleSpaceBar(
           background: RecipeOverlay()

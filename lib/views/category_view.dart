@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodmix/components/category/category_appbar.dart';
+import 'package:foodmix/components/category/category_info.dart';
 import 'package:foodmix/components/category/category_results.dart';
+import 'package:foodmix/components/includes/loading_view.dart';
 import 'package:foodmix/components/includes/show_more_button.dart';
-import 'package:foodmix/const.dart';
 import 'package:foodmix/viewModels/category_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,42 +17,41 @@ class CategoryView extends StatelessWidget {
       viewModelBuilder: () => CategoryViewModel(slug: slug),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, child) => Scaffold(
-        appBar: AppBar(
-          title: Text(viewModel.category.name),
-          backgroundColor: kPrimary,
-          elevation: 0.0,
-          centerTitle: false,
-          leading: IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.of(context).pop()
-          ),
-          actions: [
-            IconButton(icon: Icon(Icons.share), onPressed: () {})
-          ],
-        ),
-        body: Align(
-          alignment: Alignment.topLeft,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    child: viewModel.recipes.isNotEmpty ? const CategoryResults() : Container(),
+        backgroundColor: Colors.white,
+        body: CustomScrollView(
+          controller: viewModel.scrollController,
+          slivers: [
+            const CategoryAppBar(),
+            SliverToBoxAdapter(
+              // hasScrollBody: true,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 5, left: 20, right: 20, bottom: 20),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      const CategoryInfo(),
+                      const SizedBox(height: 20),
+                      const CategoryResults(),
+                      const SizedBox(height: 20),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: viewModel.isNoMore
+                            ? const LoadingView(title: 'Mọi thứ tới đay thôi...')
+                            : viewModel.isLoading
+                                ? const LoadingView()
+                                : ShowMoreButton(callback: () => viewModel.getRecipes()),
+                      )
+                    ],
                   ),
-
-                  ShowMoreButton(callback: () => {})
-                ],
+                ),
               ),
-            ),
-          ),
+            )
+          ],
         ),
       ),
     );
   }
 }
-

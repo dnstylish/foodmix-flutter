@@ -15,27 +15,29 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(),
-      builder: (context, viewModel, child) => SingleChildScrollView(
-        padding: const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 20),
-        child: Column(children: const [
-          HomeTitle(),
-          SizedBox(
-            height: 20,
-          ),
-          HomeSearch(),
-          SizedBox(
-            height: 20,
-          ),
-          HomeBanner(),
-          SizedBox(
-            height: 20,
-          ),
-          HomeCategories(),
-          SizedBox(
-            height: 20,
-          ),
-          HomeRecipes()
-        ]),
+      builder: (context, viewModel, child) => SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 20),
+          child: Column(children: const [
+            HomeTitle(),
+            SizedBox(
+              height: 20,
+            ),
+            HomeSearch(),
+            SizedBox(
+              height: 20,
+            ),
+            HomeBanner(),
+            SizedBox(
+              height: 20,
+            ),
+            HomeCategories(),
+            SizedBox(
+              height: 20,
+            ),
+            HomeRecipes()
+          ]),
+        ),
       ),
     );
   }

@@ -12,7 +12,8 @@ class RecipeStepperView extends ViewModelWidget<RecipeViewModel> {
   Widget build(BuildContext context, RecipeViewModel viewModel) {
     return VisibilityDetector(
       key: const Key('stepper'),
-      onVisibilityChanged: (VisibilityInfo info) => viewModel.setCurrentView(info, 1),
+      onVisibilityChanged: (VisibilityInfo info) =>
+          viewModel.setCurrentView(info, 1),
       child: Column(
         key: viewModel.stepperKey,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,14 +33,15 @@ class RecipeStepperView extends ViewModelWidget<RecipeViewModel> {
                     color: const Color(0xFF6366f1),
                   )),
               Column(
-                children: viewModel.recipe.stepper
+                children: (viewModel.recipe?.stepper ?? [])
                     .asMap()
                     .map((index, stepper) => MapEntry(
                         index,
                         _StepperItem(
                             stepper: stepper,
                             index: index,
-                            count: viewModel.recipe.stepper.length)))
+                            count: (viewModel.recipe?.stepper ?? []).length
+                        )))
                     .values
                     .toList(),
               )
@@ -100,20 +102,20 @@ class _StepperItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Text('Bước ${index + 1}', style: const TextStyle(fontSize: 18)),
-
               const SizedBox(
                 height: 10,
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(stepper.content),
-                  (() => stepper.image.isNotEmpty ? _StepperContent(stepper: stepper) : Container())(),
-
-                  (() => index < count - 1 ? const Divider(height: 30) : Container())()
+                  (() => stepper.image.isNotEmpty
+                      ? _StepperContent(stepper: stepper)
+                      : Container())(),
+                  (() => index < count - 1
+                      ? const Divider(height: 30)
+                      : Container())()
                 ],
               )
             ],
@@ -138,8 +140,6 @@ class _StepperContent extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
-            child: CachedNetworkImage(imageUrl: stepper.image)
-        )
-    );
+            child: CachedNetworkImage(imageUrl: stepper.image)));
   }
 }

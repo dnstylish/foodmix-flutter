@@ -8,6 +8,7 @@ class BottomBarView extends ViewModelWidget<PrefViewModel> {
   @override
   Widget build(BuildContext context, PrefViewModel viewModel) {
     return BottomNavigationBar(
+      backgroundColor: Colors.white,
         // showSelectedLabels: false,
         // showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,

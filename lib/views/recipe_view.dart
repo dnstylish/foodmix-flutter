@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodmix/components/recipe/recipe_appbar.dart';
 import 'package:foodmix/components/recipe/recipe_info.dart';
-import 'package:foodmix/components/recipe/recipe_ingredients.dart';
 import 'package:foodmix/components/recipe/recipe_reviews.dart';
 import 'package:foodmix/components/recipe/recipe_stepper.dart';
 import 'package:foodmix/viewModels/recipe_view_model.dart';
@@ -30,14 +29,21 @@ class RecipeView extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
                   child: Column(
-                    children: const [
-                      RecipeInfo(),
-                      // SizedBox(height: 25),
-                      // RecipeReviews(),
-                      SizedBox(height: 25),
-                      RecipeStepperView(),
-                      SizedBox(height: 25),
-                      RecipeReviews()
+                    children: [
+                      const RecipeInfo(),
+                      const SizedBox(height: 25),
+                      AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                        child: !viewModel.isReady
+                            ? Container()
+                            : Column(
+                                children: const [
+                                  RecipeStepperView(),
+                                  SizedBox(height: 25),
+                                  RecipeReviews()
+                                ],
+                        ),
+                      )
                     ],
                   ),
                 ),

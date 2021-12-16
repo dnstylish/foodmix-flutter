@@ -15,19 +15,21 @@ class SearchView extends StatelessWidget {
     return ViewModelBuilder<SearchViewModel>.reactive(
       viewModelBuilder: () => SearchViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(),
-      builder: (context, viewModel, child) => Padding(
-        padding:
-            const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
-        child: Column(
-          children: [
-            const SearchTitle(),
-            const SizedBox(height: 20),
-            const SearchInputView(),
-            const SizedBox(height: 20),
-            const SearchSelectCategory(),
-            const SizedBox(height: 20),
-            (() => viewModel.showSearch ? const SearchResult() : const SearchPlaceholder())(),
-          ],
+      builder: (context, viewModel, child) => SafeArea(
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 20),
+          child: Column(
+            children: [
+              const SearchTitle(),
+              const SizedBox(height: 20),
+              const SearchInputView(),
+              const SizedBox(height: 20),
+              const SearchSelectCategory(),
+              const SizedBox(height: 20),
+              (() => viewModel.showSearch ? const SearchResult() : const SearchPlaceholder())(),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PrefViewModel extends ChangeNotifier {
-  int tabSelected = 0;
+  int tabSelected = 3;
 
 
   void initialise() {

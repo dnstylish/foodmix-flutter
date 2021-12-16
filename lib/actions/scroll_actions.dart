@@ -14,4 +14,16 @@ class ScrollActions {
       showPress = scrollController.offset / point;
     }
   }
+
+  void scrollTo(GlobalKey globalKey) {
+    try {
+      if(globalKey.currentContext != null) {
+        scrollController.position.ensureVisible(
+            globalKey.currentContext?.findRenderObject() as RenderObject,
+            alignment: 0, // How far into view the item should be scrolled (between 0 and 1).
+            duration: const Duration(seconds: 1)
+        );
+      }
+    } catch (_) {}
+  }
 }

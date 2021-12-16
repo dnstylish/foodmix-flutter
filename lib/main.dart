@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodmix/viewModels/pref_view_model.dart';
+import 'package:foodmix/views/category_view.dart';
 import 'package:foodmix/views/main_view.dart';
+import 'package:foodmix/views/recipe_view.dart';
+import 'package:foodmix/views/search_view.dart';
 import 'package:stacked/stacked.dart';
 
 void main() {
@@ -12,7 +15,7 @@ class FoodMix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PrefViewModel>.reactive(
+    return ViewModelBuilder<PrefViewModel>.nonReactive(
       viewModelBuilder: () => PrefViewModel(),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, child) => MaterialApp(

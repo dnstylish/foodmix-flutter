@@ -1,22 +1,22 @@
 // ViewModel
 import 'package:flutter/material.dart';
 import 'package:foodmix/actions/api_actions.dart';
+import 'package:foodmix/actions/response_actions.dart';
 import 'package:foodmix/actions/scroll_actions.dart';
-import 'package:foodmix/models/category.dart';
 import 'package:foodmix/models/recipe.dart';
 import 'package:foodmix/models/review.dart';
 import 'package:foodmix/models/user.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class RecipeViewModel extends ChangeNotifier with ServerAction, ScrollActions {
+class RecipeViewModel extends ChangeNotifier with ServerAction, ScrollActions, ResponseActions {
   final String slug;
 
-  Recipe recipe = recipeExample;
+  Recipe? recipe;
   List<User> bookMarkers = bookMarkersExample;
   List<Review> reviews = reviewsExample;
 
   int serving = 1;
-  bool isLoading = false;
+  bool isReady = false;
 
   List<InViewElement> inViews = [ InViewElement(name: 'info'), InViewElement(name: 'stepper'), InViewElement(name: 'reviews') ];
 
@@ -35,43 +35,12 @@ class RecipeViewModel extends ChangeNotifier with ServerAction, ScrollActions {
   InViewElement get currentView => inViews.reduce((value, element) => element.process < value.process ? value : element);
 
   Future<void> getRecipe() async {
-    isLoading = true;
-    notifyListeners();
     try {
       ServerResponse response = await $get('/recipes/$slug');
-      Map<String, dynamic> result = response.data;
-
-      List<Ingredient> _ingredients = (result['ingredients'] as List<dynamic>)
-          .map((e) => Ingredient(
-              name: e['name'], count: e['count'] as int, unit: e['unit']))
-          .toList();
-
-      List<RecipeStepper> _stepper = (result['stepper'] as List<dynamic>)
-          .map((e) => RecipeStepper(content: e['content'], image: e['image']))
-          .toList();
-
-      recipe = Recipe(
-          name: result['name'],
-          slug: result['slug'],
-          avatar: result['avatar'],
-          rating: (result['rating'] as int).toDouble(),
-          content: result['content'],
-          time: result['time'],
-          user: User(
-              email: result['user']['email'],
-              avatar: result['user']['avatar'],
-              name: result['user']['name']),
-          category: Category(
-              name: result['category']['name'],
-              avatar: result['category']['avatar'],
-              slug: result['category']['slug']),
-          ingredients: _ingredients,
-          stepper: _stepper
-      );
-
-      isLoading = false;
+      recipe = makeRecipe(response.data)!;
+      isReady = true;
+      notifyListeners();
     } catch (_) { }
-    notifyListeners();
   }
 
   void _setupController() {
@@ -99,16 +68,9 @@ class RecipeViewModel extends ChangeNotifier with ServerAction, ScrollActions {
     notifyListeners();
   }
 
-  void scrollTo(GlobalKey globalKey) {
-    try {
-      if(globalKey.currentContext != null) {
-        scrollController.position.ensureVisible(
-            globalKey.currentContext?.findRenderObject() as RenderObject,
-            alignment: 0, // How far into view the item should be scrolled (between 0 and 1).
-            duration: const Duration(seconds: 1)
-        );
-      }
-    } catch (_) {}
+  void toggleIsReady() {
+    isReady = !isReady;
+    notifyListeners();
   }
 
   @override

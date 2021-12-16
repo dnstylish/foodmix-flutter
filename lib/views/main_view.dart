@@ -3,6 +3,7 @@ import 'package:foodmix/components/includes/bottom_bar.dart';
 import 'package:foodmix/viewModels/pref_view_model.dart';
 import 'package:foodmix/views/home_view.dart';
 import 'package:foodmix/views/search_view.dart';
+import 'package:foodmix/views/setting_view.dart';
 import 'package:stacked/stacked.dart';
 
 class MainView extends StatelessWidget {
@@ -17,16 +18,14 @@ class MainView extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Align(
           alignment: Alignment.topLeft,
-          child: SafeArea(
-            child: IndexedStack(
-              children: [
-                const HomeView(),
-                const SearchView(),
-                Container(),
-                Container()
-              ],
-              index: viewModel.tabSelected,
-            ),
+          child: IndexedStack(
+            children: [
+              const HomeView(),
+              const SearchView(),
+              Container(),
+              const SettingView()
+            ],
+            index: viewModel.tabSelected,
           ),
         ),
         bottomNavigationBar: const BottomBarView(),
