@@ -1,6 +1,6 @@
 // ViewModel
 import 'package:flutter/material.dart';
-import 'package:foodmix/actions/api_actions.dart';
+import 'package:foodmix/actions/network_action.dart';
 import 'package:foodmix/actions/response_actions.dart';
 import 'package:foodmix/actions/scroll_actions.dart';
 import 'package:foodmix/models/recipe.dart';
@@ -8,7 +8,7 @@ import 'package:foodmix/models/review.dart';
 import 'package:foodmix/models/user.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class RecipeViewModel extends ChangeNotifier with ServerAction, ScrollActions, ResponseActions {
+class RecipeViewModel extends ChangeNotifier with NetworkAction, ScrollActions, ResponseActions {
   final String slug;
 
   Recipe? recipe;
@@ -36,7 +36,7 @@ class RecipeViewModel extends ChangeNotifier with ServerAction, ScrollActions, R
 
   Future<void> getRecipe() async {
     try {
-      ServerResponse response = await $get('/recipes/$slug');
+      NetworkResponse response = await $get('/recipes/$slug');
       recipe = makeRecipe(response.data)!;
       isReady = true;
       notifyListeners();

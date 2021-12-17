@@ -58,4 +58,25 @@ class ResponseActions {
       return [];
     }
   }
+
+  @protected
+  User? makeUser(dynamic raw) {
+    try {
+      return User(
+          name: raw['name'],
+          avatar: raw['avatar'],
+          email: raw['email'],
+          banner: raw['banner'] ?? '',
+          about: raw['about'] ?? '',
+          province: raw['province'] ?? '',
+          rating: raw['rating'] != null ? raw['rating'].toDouble() : 0,
+          countRating: raw['countRating'] != null ? raw['countRating'].toInt() : 0,
+          countRecipe: raw['countRecipe'] != null ? raw['countRecipe'].toInt() : 0,
+          createdAt: raw['createdAt'] != null ? raw['createdAt'].toDouble() : 0
+      );
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

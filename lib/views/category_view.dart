@@ -3,7 +3,7 @@ import 'package:foodmix/components/category/category_appbar.dart';
 import 'package:foodmix/components/category/category_info.dart';
 import 'package:foodmix/components/category/category_results.dart';
 import 'package:foodmix/components/includes/loading_view.dart';
-import 'package:foodmix/components/includes/show_more_button.dart';
+import 'package:foodmix/components/includes/primary_button.dart';
 import 'package:foodmix/viewModels/category_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -42,7 +42,7 @@ class CategoryView extends StatelessWidget {
                             ? const LoadingView(title: 'Mọi thứ tới đay thôi...')
                             : viewModel.isLoading
                                 ? const LoadingView()
-                                : ShowMoreButton(callback: () => viewModel.getRecipes()),
+                                : PrimaryButton(callback: () => viewModel.getRecipes()),
                       )
                     ],
                   ),

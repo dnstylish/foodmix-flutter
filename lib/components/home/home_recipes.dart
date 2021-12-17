@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodmix/components/includes/loading_view.dart';
 import 'package:foodmix/components/includes/recipe_item.dart';
-import 'package:foodmix/components/includes/show_more_button.dart';
+import 'package:foodmix/components/includes/primary_button.dart';
 import 'package:foodmix/const.dart';
 import 'package:foodmix/viewModels/home_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -34,7 +34,7 @@ class HomeRecipes extends ViewModelWidget<HomeViewModel> {
               ? const LoadingView(title: 'Mọi thứ tới đây thôi...')
               : viewModel.isLoading
                   ? const LoadingView()
-                  : ShowMoreButton(callback: () => viewModel.getRecipes()),
+                  : PrimaryButton(callback: () => viewModel.getRecipes()),
         )
       ],
     );

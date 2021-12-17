@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodmix/components/includes/loading_view.dart';
 import 'package:foodmix/components/includes/recipe_item.dart';
-import 'package:foodmix/components/includes/show_more_button.dart';
+import 'package:foodmix/components/includes/primary_button.dart';
 import 'package:foodmix/viewModels/search_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -38,7 +38,7 @@ class SearchResult extends ViewModelWidget<SearchViewModel> {
         ),
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: !viewModel.isLoading ? const Center(child:  LoadingView()) : ShowMoreButton(callback: () => viewModel.getSearch()
+          child: !viewModel.isLoading ? const Center(child:  LoadingView()) : PrimaryButton(callback: () => viewModel.getSearch()
           ),
         )
       ],

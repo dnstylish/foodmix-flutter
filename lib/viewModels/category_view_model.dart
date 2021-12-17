@@ -1,12 +1,12 @@
 // ViewModel
 import 'package:flutter/material.dart';
-import 'package:foodmix/actions/api_actions.dart';
+import 'package:foodmix/actions/network_action.dart';
 import 'package:foodmix/actions/response_actions.dart';
 import 'package:foodmix/actions/scroll_actions.dart';
 import 'package:foodmix/models/category.dart';
 import 'package:foodmix/models/recipe.dart';
 
-class CategoryViewModel extends ChangeNotifier with ServerAction, ResponseActions, ScrollActions {
+class CategoryViewModel extends ChangeNotifier with NetworkAction, ResponseActions, ScrollActions {
   final String slug;
 
   Category? category;
@@ -30,7 +30,7 @@ class CategoryViewModel extends ChangeNotifier with ServerAction, ResponseAction
   Future<void> _getCategory() async {
     try {
 
-      ServerResponse response = await $get('/categories/$slug');
+      NetworkResponse response = await $get('/categories/$slug');
       category = makeCategory(response.data)!;
       await _getCount();
       isReady = true;
@@ -41,7 +41,7 @@ class CategoryViewModel extends ChangeNotifier with ServerAction, ResponseAction
 
   Future<void> _getCount() async {
     try {
-      ServerResponse response = await $get('/categories/$slug/count');
+      NetworkResponse response = await $get('/categories/$slug/count');
       count = response.data as int;
     } catch (_) {}
   }
@@ -49,7 +49,7 @@ class CategoryViewModel extends ChangeNotifier with ServerAction, ResponseAction
   Future<void> getRecipes() async {
     isLoading = true;
     try {
-      ServerResponse response = await $get('/categories/$slug/recipes', query: _getRecipesQuery);
+      NetworkResponse response = await $get('/categories/$slug/recipes', query: _getRecipesQuery);
       List<dynamic> results = response.data as List<dynamic>;
       for (var element in results) {
         recipes.add(makeRecipe(element)!);

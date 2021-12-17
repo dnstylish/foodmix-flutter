@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:foodmix/components/includes/show_more_button.dart';
+import 'package:foodmix/components/includes/primary_button.dart';
 import 'package:foodmix/models/review.dart';
 import 'package:foodmix/viewModels/recipe_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -63,7 +63,7 @@ class RecipeReviews extends ViewModelWidget<RecipeViewModel> {
             children: viewModel.reviews.map((e) => _ReviewItem(review: e)).toList(),
           ),
 
-          ShowMoreButton(callback: () {})
+          PrimaryButton(callback: () {})
 
         ],
       ),

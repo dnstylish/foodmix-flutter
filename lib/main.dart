@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:foodmix/viewModels/pref_view_model.dart';
-import 'package:foodmix/views/category_view.dart';
+import 'package:foodmix/service_locator.dart';
+import 'package:foodmix/services/network_service.dart';
+import 'package:foodmix/views/login_view.dart';
 import 'package:foodmix/views/main_view.dart';
-import 'package:foodmix/views/recipe_view.dart';
-import 'package:foodmix/views/search_view.dart';
-import 'package:stacked/stacked.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocator();
   runApp(const FoodMix());
 }
 
@@ -15,15 +15,11 @@ class FoodMix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<PrefViewModel>.nonReactive(
-      viewModelBuilder: () => PrefViewModel(),
-      onModelReady: (viewModel) => viewModel.initialise(),
-      builder: (context, viewModel, child) => MaterialApp(
-        theme: ThemeData(
+    return MaterialApp(
+      theme: ThemeData(
           textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.grey)
-        ),
-        home: const MainView(),
       ),
+      home: const MainView(),
     );
   }
 }

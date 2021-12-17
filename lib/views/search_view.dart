@@ -3,6 +3,7 @@ import 'package:foodmix/components/search/search_input.dart';
 import 'package:foodmix/components/search/search_results.dart';
 import 'package:foodmix/components/search/search_title.dart';
 import 'package:foodmix/components/search/select_category.dart';
+import 'package:foodmix/viewModels/pref_view_model.dart';
 import 'package:foodmix/viewModels/search_view_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:lottie/lottie.dart';

@@ -1,11 +1,11 @@
 // ViewModel
 import 'package:flutter/material.dart';
-import 'package:foodmix/actions/api_actions.dart';
+import 'package:foodmix/actions/network_action.dart';
 import 'package:foodmix/actions/response_actions.dart';
 import 'package:foodmix/models/category.dart';
 import 'package:foodmix/models/recipe.dart';
 
-class HomeViewModel extends ChangeNotifier with ServerAction, ResponseActions {
+class HomeViewModel extends ChangeNotifier with NetworkAction, ResponseActions {
   List<Category> categories = [];
   List<Recipe> recipes = [];
 
@@ -25,7 +25,7 @@ class HomeViewModel extends ChangeNotifier with ServerAction, ResponseActions {
     isLoadingCategories = true;
     notifyListeners();
     try {
-      ServerResponse response = await $get('/categories');
+      NetworkResponse response = await $get('/categories');
       List<dynamic> results = response.data as List<dynamic>;
       // xoá dữ liệu mẫu
       categories = [];
@@ -41,7 +41,7 @@ class HomeViewModel extends ChangeNotifier with ServerAction, ResponseActions {
     isLoading = true;
     notifyListeners();
     try {
-      ServerResponse response = await $get('/recipes', query: _getRecipesQuery);
+      NetworkResponse response = await $get('/recipes', query: _getRecipesQuery);
       List<dynamic> results = response.data as List<dynamic>;
       for (var element in results) {
         recipes.add(makeRecipe(element)!);

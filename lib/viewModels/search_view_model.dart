@@ -1,5 +1,5 @@
 // ViewModel
-import 'package:foodmix/actions/api_actions.dart';
+import 'package:foodmix/actions/network_action.dart';
 import 'package:foodmix/models/recipe.dart';
 import 'package:foodmix/models/user.dart';
 import 'package:foodmix/viewModels/home_view_model.dart';
@@ -22,7 +22,7 @@ class SearchViewModel extends HomeViewModel {
     isLoading = true;
     notifyListeners();
     try {
-      ServerResponse response = await $get('/search', query: { 'keyword': keyword, 'page': page, 'limit': 10 });
+      NetworkResponse response = await $get('/search', query: { 'keyword': keyword, 'page': page, 'limit': 10 });
       List<dynamic> results = response.data as List<dynamic>;
       for (var element in results) {
         recipes.add(Recipe(

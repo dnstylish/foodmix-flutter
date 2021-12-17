@@ -5,12 +5,12 @@ class User with CDNAction {
   final String avatar;
   final String banner;
   final String email;
-  final String about;
-  final String province;
-  final double rating;
-  final int countRating;
-  final int countRecipe;
-  final int createdAt;
+  final String? about;
+  final String? province;
+  final double? rating;
+  final int? countRating;
+  final int? countRecipe;
+  final double? createdAt;
 
   User({ required this.name, required this.avatar, this.banner = '', required this.email, this.about = '', this.province = '', this.rating = 0, this.countRating = 0, this.countRecipe = 0, this.createdAt = 0 });
 }
