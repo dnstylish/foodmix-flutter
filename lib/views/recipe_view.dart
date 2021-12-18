@@ -3,8 +3,11 @@ import 'package:foodmix/components/recipe/recipe_appbar.dart';
 import 'package:foodmix/components/recipe/recipe_info.dart';
 import 'package:foodmix/components/recipe/recipe_reviews.dart';
 import 'package:foodmix/components/recipe/recipe_stepper.dart';
+import 'package:foodmix/services/network_service.dart';
 import 'package:foodmix/viewModels/recipe_view_model.dart';
 import 'package:stacked/stacked.dart';
+
+import '../service_locator.dart';
 
 
 class RecipeView extends StatelessWidget {
@@ -14,10 +17,14 @@ class RecipeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    locator<NetworkService>().context = context;
+
     return ViewModelBuilder<RecipeViewModel>.reactive(
       viewModelBuilder: () => RecipeViewModel(slug: slug),
       onModelReady: (viewModel) => viewModel.initialise(),
       builder: (context, viewModel, child) => Scaffold(
+        backgroundColor: Colors.white,
         body: CustomScrollView(
           controller: viewModel.scrollController,
           slivers: [

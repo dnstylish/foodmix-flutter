@@ -26,7 +26,7 @@ class RecipeAppBar extends ViewModelWidget<RecipeViewModel> {
           onPressed: () => Navigator.of(context).pop()
       ),
       actions: [
-        IconButton(icon: const Icon(Icons.bookmark), onPressed: () => viewModel.toggleIsReady())
+        IconButton(icon: Icon(Icons.bookmark, color: viewModel.isBookmark ? kPrimary : Colors.white), onPressed: () => viewModel.bookmarkAction())
       ],
       flexibleSpace: const FlexibleSpaceBar(
           background: RecipeOverlay()

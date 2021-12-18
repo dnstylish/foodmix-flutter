@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -96,5 +95,7 @@ class NetworkService {
       }
     }
   }
+
+  BuildContext? get buildContext => context;
 
 }

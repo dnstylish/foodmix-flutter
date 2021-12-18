@@ -55,9 +55,25 @@ class AuthViewModel extends BaseViewModel with NetworkAction {
     }
   }
 
-  Future<void> signUp() async{
-    await _authService.signUp(name: name, email: email, password: password);
+  Future<void> signUp(BuildContext context) async{
+    if([email, password, name].contains('')) {
+      return;
+    }
+    await _authService.signUp(email: email, password: password, name: name);
     notifyListeners();
+
+    if(auth) {
+      showTopSnackBar(
+        context,
+        const CustomSnackBar.success(
+          message: "Đăng ký thành công",
+          icon: Icon(Icons.add, color: Colors.transparent),
+          backgroundColor: kPrimary,
+        ),
+      );
+
+      Navigator.of(context).pop();
+    }
   }
 
   void toggleShowPass() {

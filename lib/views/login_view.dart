@@ -1,10 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foodmix/components/login/google_login_button.dart';
 import 'package:foodmix/components/login/login_form.dart';
 import 'package:foodmix/services/network_service.dart';
 import 'package:foodmix/viewModels/auth_view_model.dart';
+import 'package:foodmix/views/sign_up_view.dart';
 import 'package:stacked/stacked.dart';
 
+import '../const.dart';
 import '../service_locator.dart';
 
 class LoginView extends StatelessWidget {
@@ -58,7 +61,28 @@ class LoginView extends StatelessWidget {
                         ),
                       ),
 
-                      const GoogleLoginButton()
+                      const GoogleLoginButton(),
+
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 40),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(text: 'Chưa có tài khoản? ', style: const TextStyle(color: kPrimary).copyWith(color: Colors.black)),
+                                  TextSpan(
+                                      text: 'Đăng ký ngay',
+                                      style: const TextStyle(color: kPrimary),
+                                      recognizer: TapGestureRecognizer()..onTap = () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpView())),
+                                  ),
+                                ]
+                              )
+                          )
+                        ),
+                      )
+
+
                     ],
                   ),
                 )

@@ -25,6 +25,10 @@ const SliverGridDelegateWithFixedCrossAxisCount kGridRecipesLayout = SliverGridD
 );
 
 final BorderRadius kPrimaryRadius = BorderRadius.circular(10);
+const BorderRadius kBottomSheetRadius = BorderRadius.only(
+  topLeft: Radius.circular(15),
+  topRight: Radius.circular(15)
+);
 
 class Notify {
   static CustomSnackBar success(String msg) => CustomSnackBar.success(

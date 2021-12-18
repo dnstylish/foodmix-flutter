@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodmix/service_locator.dart';
-import 'package:foodmix/services/network_service.dart';
-import 'package:foodmix/views/login_view.dart';
 import 'package:foodmix/views/main_view.dart';
+import 'package:foodmix/views/recipe_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

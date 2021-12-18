@@ -20,6 +20,12 @@ class NetworkAction {
     return NetworkResponse(code: res.data['code'], data: res.data['data'], msg: res.data['msg']);
   }
 
+  @protected
+  Future<NetworkResponse> $delete(String url, { Map<String, dynamic>? data  }) async {
+    var res = await server.dio.delete('$_baseURL$url', data: data);
+    return NetworkResponse(code: res.data['code'], data: res.data['data'], msg: res.data['msg']);
+  }
+
   String $cdn(String url) {
     return RegExp('^(http|https)').hasMatch(url) ? url : '$_baseURL$url';
   }

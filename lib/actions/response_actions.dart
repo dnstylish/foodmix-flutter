@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodmix/models/category.dart';
 import 'package:foodmix/models/recipe.dart';
+import 'package:foodmix/models/review.dart';
 import 'package:foodmix/models/user.dart';
 
 class ResponseActions {
@@ -12,13 +13,10 @@ class ResponseActions {
           slug: raw['slug'],
           avatar: raw['avatar'],
           rating: (raw['rating'] as int).toDouble(),
+          countRating: raw['countRating'] as int,
           time: raw['time'],
           content: raw['content'] ?? '',
-          user: User(
-              email: raw['user']['email'],
-              avatar: raw['user']['avatar'],
-              name: raw['user']['name']
-          ),
+          user: makeUser(raw['user']),
           category: raw['category'] == null ? null : makeCategory(raw['category']),
           stepper: raw['stepper'] == null ? [] : makeListStepper(raw['stepper']),
           ingredients: raw['ingredients'] == null ? [] : makeListIngredient(raw['ingredients'])
@@ -75,7 +73,20 @@ class ResponseActions {
           createdAt: raw['createdAt'] != null ? raw['createdAt'].toDouble() : 0
       );
     } catch (e) {
-      print(e);
+      return null;
+    }
+  }
+
+  @protected
+  Review? makeReview(dynamic raw) {
+    try {
+      return Review(
+          user: makeUser(raw['user']) as User,
+          content: raw['content'],
+          rating: raw['rating'].toDouble(),
+          createdAt: raw['createdAt']
+      );
+    } catch (e) {
       return null;
     }
   }

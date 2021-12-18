@@ -7,25 +7,30 @@ class PrimaryButton extends StatelessWidget {
     this.label = 'Xem Thêm',
     required this.callback,
     this.icon = Icons.arrow_drop_down,
-    this.radius = 10
+    this.radius = 10,
+    this.vertical = 10
   }) : super(key: key);
 
   final String label;
   final VoidCallback callback;
   final IconData? icon;
   final double radius;
+  final double vertical;
 
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero
+      ),
         onPressed: () {
           callback();
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(radius),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: vertical),
             width: double.infinity,
             color: kPrimary,
             child:  Row(

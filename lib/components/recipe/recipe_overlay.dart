@@ -58,8 +58,7 @@ class _RecipeAuthor extends ViewModelWidget<RecipeViewModel> {
         ClipRRect(
             borderRadius: BorderRadius.circular(30),
             child: CachedNetworkImage(
-              imageUrl:
-              'https://api.foodmix.xyz/images/users/61b4641e53050d21cbe36a15/avatar/25d977ca-2601-4213-b667-c932041342d1.jpg',
+              imageUrl: viewModel.$cdn(viewModel.recipe?.user?.avatar ?? ''),
               width: 45,
               height: 45,
               fit: BoxFit.cover,
@@ -68,15 +67,16 @@ class _RecipeAuthor extends ViewModelWidget<RecipeViewModel> {
         Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('Đăng bởi',
+              children: [
+                const Text('Đăng bởi',
                     style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 3),
-                Text('Trường Thọ',
-                    style: TextStyle(
+                const SizedBox(height: 3),
+                Text('${viewModel.recipe?.user?.name}',
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
-                        fontWeight: FontWeight.bold))
+                        fontWeight: FontWeight.bold)
+                )
               ],
             )),
         const SizedBox(width: 10),
